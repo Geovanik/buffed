@@ -27,7 +27,6 @@ int main(){
          
     }
     
-     
      //Inserção de tuplas na tabela1   
     colunas = NULL;     
     colunas = insereValor(colunas, "CPF", "123456");
