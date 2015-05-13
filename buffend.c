@@ -36,6 +36,7 @@ struct fs_objects leObjeto(char *nTabela){
             fread(&cod,sizeof(int),1,dicionario);
             objeto.qtdCampos = cod;
             
+            free(tupla);
             return objeto;
         }
         fseek(dicionario, 28, 1); // Pula a quantidade de caracteres para a proxima verificacao(4B do codigo, 20B do nome do arquivo e 4B da quantidade de campos).
@@ -334,6 +335,7 @@ char *getTupla(tp_table *campos,struct fs_objects objeto, int from){ //Pega uma 
 
     int tamTpl = tamTupla(campos, objeto);
     char *linha=(char *)malloc(sizeof(char)*tamTpl);
+    //char *linha_aux=NULL;
     FILE *dados;
 
     from = from * tamTpl;
@@ -353,6 +355,10 @@ char *getTupla(tp_table *campos,struct fs_objects objeto, int from){ //Pega uma 
         return ERRO_DE_LEITURA;
     }
     fclose(dados);
+    //linha_aux=linha;
+    //printf("linha %p linha2 %p\n",linha,linha_aux);
+    //free(linha);
+    //return linha_aux;
     return linha;
 }
 void setTupla(tp_buffer *buffer,char *tupla, int tam, int pos){ //Coloca uma tupla de tamanho "tam" no buffer e na página "pos"
